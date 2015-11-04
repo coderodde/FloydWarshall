@@ -4,13 +4,13 @@ import static net.coderodde.graph.pathfinding.Utils.checkNodeIndex;
 import static net.coderodde.graph.pathfinding.Utils.checkNumberOfNodes;
 
 /**
- * This class implements a read-only data structure for querying the shortest
- * path costs between two nodes. All queries run in constant time.
+ * This class implements a data structure for querying the shortest path costs 
+ * between two nodes. All queries run in constant time.
  * 
  * @author Rodion "rodde" Efremov
  * @version 1.6 (Nov 3, 2015)
  */
-public class ShortestPathCostMatrix {
+public final class ShortestPathCostMatrix {
     
     private final double[][] matrix;
     

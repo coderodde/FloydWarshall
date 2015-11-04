@@ -1,13 +1,13 @@
 package net.coderodde.graph.pathfinding;
 
 /**
- * This class bundles all the information computed in a all-pairs shortest path
+ * This class bundles all the information computed in an all-pairs shortest path
  * algorithm.
  * 
  * @author Rodion "rodde" Efremov
  * @version 1.6 (Nov 3, 2015) 
  */
-public class ShortestPathData {
+public final class ShortestPathData {
     
     private final ShortestPathCostMatrix costMatrix;
     private final ParentMatrix parentMatrix;

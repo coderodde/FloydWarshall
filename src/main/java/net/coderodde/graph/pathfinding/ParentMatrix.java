@@ -6,11 +6,14 @@ import static net.coderodde.graph.pathfinding.Utils.checkNodeIndex;
 import static net.coderodde.graph.pathfinding.Utils.checkNumberOfNodes;
 
 /**
- * This class implements a data structure for querying 
+ * This class implements a data structure for querying parents on shortest
+ * paths. All shortest path queries run in linear time with regard to the number
+ * of edges in the queried path.
+ * 
  * @author Rodion "rodde" Efremov
  * @version 1.6 (Nov 3, 2015)
  */
-public class ParentMatrix {
+public final class ParentMatrix {
     
     /**
      * This sentinel value denotes the situation where there is no parent node
@@ -41,7 +44,9 @@ public class ParentMatrix {
      * 
      * @param sourceNodeIndex  the index of the source node of a shortest path.
      * @param currentNodeIndex the index of the query node.
-     * @return the index of the parent node or {@link NIL} if there is no such.
+     * @return the index of the parent node of {@code currentNodeIndex} on a
+     *         shortest path from {@code sourceNodeIndex} to 
+     *         {@code currentNodeIndex} or {@link NIL} if there is no such.
      */
     public int getParent(int sourceNodeIndex, int currentNodeIndex) {
         checkNodeIndex(sourceNodeIndex, matrix.length);
@@ -58,11 +63,17 @@ public class ParentMatrix {
      * 
      * @param sourceNodeIndex the index of the source node.
      * @param targetNodeIndex the index of the target node.
-     * @return an array of integers listing the node indices on a shortest path.
+     * @return an array of integers listing the node indices on a shortest path
+     *         or an empty array if the target node is not reachable from the 
+     *         source node.
      */
     public int[] getShortestPath(int sourceNodeIndex, int targetNodeIndex) {
         checkNodeIndex(sourceNodeIndex, matrix.length);
         checkNodeIndex(targetNodeIndex, matrix.length);
+        
+        if (sourceNodeIndex == targetNodeIndex) {
+            return new int[]{sourceNodeIndex};
+        }
         
         if (matrix[sourceNodeIndex][targetNodeIndex] == NIL) {
             return new int[0];
@@ -79,6 +90,7 @@ public class ParentMatrix {
         
         int[] path = new int[nodeIndexList.size()];
         
+        // The path in 'nodeIndexList' is in reversed order.
         for (int i = 0; i < path.length; ++i) {
             path[i] = nodeIndexList.get(nodeIndexList.size() - 1 - i);
         }

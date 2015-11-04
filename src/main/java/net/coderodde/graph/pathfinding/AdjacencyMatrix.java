@@ -13,7 +13,7 @@ import static net.coderodde.graph.pathfinding.Utils.checkNodeIndex;
  * @author Rodion "rodde" Efremov
  * @version 1.6 (Nov 3, 2015)
  */
-public class AdjacencyMatrix {
+public final class AdjacencyMatrix {
 
     private final double[][] matrix;
     
@@ -28,7 +28,7 @@ public class AdjacencyMatrix {
         }
         
         for (int i = 0; i < numberOfNodes; ++i) {
-            // The distance from a node to itself is zero.
+            // The distance from a node to itself is always zero.
             matrix[i][i] = 0.0;
         }
     }

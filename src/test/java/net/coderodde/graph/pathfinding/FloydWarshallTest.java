@@ -226,5 +226,14 @@ public class FloydWarshallTest {
         assertEquals(3, path[2]);
         assertEquals(2, path[3]);
         assertEquals(1, path[4]);
+        
+        // Test the special case where the source and the target nodes are the
+        // same.
+        path = pm.getShortestPath(3, 3);
+        
+        assertEquals(0.0, cm.getShortestPathCost(3, 3), 0.0);
+        
+        assertEquals(1, path.length);
+        assertEquals(3, path[0]);
     }
 }

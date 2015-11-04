@@ -9,7 +9,7 @@ import java.util.Objects;
  * @author Rodion "rodde" Efremov
  * @version 1.6 (Nov 3, 2015)
  */
-public class FloydWarshall {
+public final class FloydWarshall {
 
     public ShortestPathData compute(AdjacencyMatrix adjacencyMatrix) {
         Objects.requireNonNull(adjacencyMatrix,
@@ -53,6 +53,7 @@ public class FloydWarshall {
                                     parentMatrix);
     }
     
+    // Initializes the parent and shortest path cost matrices.
     private void preprocess(ParentMatrix parentMatrix,
                             ShortestPathCostMatrix shortestPathCostMatrix,
                             AdjacencyMatrix adjacencyMatrix) {

@@ -6,7 +6,7 @@ package net.coderodde.graph.pathfinding;
  * @author Rodion "rodde" Efremov
  * @version 1.6 (Nov 3, 2015)
  */
-public class Utils {
+class Utils {
     
     static void checkNumberOfNodes(int numberOfNodes) {
         if (numberOfNodes < 0) {

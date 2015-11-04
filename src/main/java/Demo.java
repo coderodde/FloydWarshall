@@ -1,10 +1,9 @@
-
 import java.util.Random;
 import net.coderodde.graph.pathfinding.AdjacencyMatrix;
 import net.coderodde.graph.pathfinding.FloydWarshall;
 import net.coderodde.graph.pathfinding.ShortestPathData;
 
-public class Demo {
+class Demo {
 
     private static final int NODES = 1_000;
     private static final int ARCS = 150_000;
@@ -38,7 +37,8 @@ public class Demo {
      * @param minWeight the minimum arc weight.
      * @param maxWeight the maximum arc weight.
      * @param random    the random number generator.
-     * @return 
+     * @return an adjacency matrix representing the graph with requested 
+     *         parameters.
      */
     private static AdjacencyMatrix getRandomAdjacencyMatrix(int nodes,
                                                             int arcs,
