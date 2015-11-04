@@ -1,7 +1,7 @@
 import java.util.Random;
-import net.coderodde.graph.pathfinding.AdjacencyMatrix;
-import net.coderodde.graph.pathfinding.FloydWarshall;
-import net.coderodde.graph.pathfinding.ShortestPathData;
+import net.coderodde.graph.allpairs.AdjacencyMatrix;
+import net.coderodde.graph.allpairs.FloydWarshall;
+import net.coderodde.graph.allpairs.ShortestPathData;
 
 class Demo {
 

@@ -1,4 +1,4 @@
-package net.coderodde.graph.pathfinding;
+package net.coderodde.graph.allpairs;
 
 /**
  * This class bundles all the information computed in an all-pairs shortest path

@@ -1,8 +1,8 @@
-package net.coderodde.graph.pathfinding;
+package net.coderodde.graph.allpairs;
 
-import static net.coderodde.graph.pathfinding.Utils.checkArcCost;
-import static net.coderodde.graph.pathfinding.Utils.checkNumberOfNodes;
-import static net.coderodde.graph.pathfinding.Utils.checkNodeIndex;
+import static net.coderodde.graph.allpairs.Utils.checkArcCost;
+import static net.coderodde.graph.allpairs.Utils.checkNumberOfNodes;
+import static net.coderodde.graph.allpairs.Utils.checkNodeIndex;
 
 /**
  * This class implements implicitly a directed graph by means of adjacency 

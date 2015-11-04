@@ -1,4 +1,4 @@
-package net.coderodde.graph.pathfinding;
+package net.coderodde.graph.allpairs;
 
 import java.util.Objects;
 

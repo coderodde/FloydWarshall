@@ -1,5 +1,10 @@
-package net.coderodde.graph.pathfinding;
+package net.coderodde.graph.allpairs;
 
+import net.coderodde.graph.allpairs.FloydWarshall;
+import net.coderodde.graph.allpairs.ShortestPathData;
+import net.coderodde.graph.allpairs.AdjacencyMatrix;
+import net.coderodde.graph.allpairs.ShortestPathCostMatrix;
+import net.coderodde.graph.allpairs.ParentMatrix;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

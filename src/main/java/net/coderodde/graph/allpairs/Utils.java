@@ -1,4 +1,4 @@
-package net.coderodde.graph.pathfinding;
+package net.coderodde.graph.allpairs;
 
 /**
  * This class contains miscellaneous utility methods for the entire library.

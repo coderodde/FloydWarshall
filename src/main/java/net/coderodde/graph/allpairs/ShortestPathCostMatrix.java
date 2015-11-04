@@ -1,7 +1,7 @@
-package net.coderodde.graph.pathfinding;
+package net.coderodde.graph.allpairs;
 
-import static net.coderodde.graph.pathfinding.Utils.checkNodeIndex;
-import static net.coderodde.graph.pathfinding.Utils.checkNumberOfNodes;
+import static net.coderodde.graph.allpairs.Utils.checkNodeIndex;
+import static net.coderodde.graph.allpairs.Utils.checkNumberOfNodes;
 
 /**
  * This class implements a data structure for querying the shortest path costs 
