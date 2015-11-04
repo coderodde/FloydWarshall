@@ -7,20 +7,20 @@ package net.coderodde.graph.allpairs;
  * @version 1.6 (Nov 3, 2015)
  */
 class Utils {
-    
+
     static void checkNumberOfNodes(int numberOfNodes) {
         if (numberOfNodes < 0) {
             throw new IllegalArgumentException(
                     "The number of nodes is negative: " + numberOfNodes);
         }
     }
-    
+
     static void checkNodeIndex(int nodeIndex, int numberOfNodes) {
         if (nodeIndex < 0) {
             throw new IllegalArgumentException(
                     "The node index is negative: " + nodeIndex);
         }
-        
+
         if (nodeIndex >= numberOfNodes) {
             throw new IllegalArgumentException(
                     "The node index is too large: " + nodeIndex + ", the " +
@@ -28,7 +28,7 @@ class Utils {
                     numberOfNodes + ".");
         }
     }
-    
+
     static void checkArcCost(double cost) {
         if (Double.isNaN(cost)) {
             throw new IllegalArgumentException("The arc cost is NaN.");

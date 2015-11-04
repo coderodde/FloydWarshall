@@ -8,20 +8,20 @@ package net.coderodde.graph.allpairs;
  * @version 1.6 (Nov 3, 2015) 
  */
 public final class ShortestPathData {
-    
+
     private final ShortestPathCostMatrix costMatrix;
     private final ParentMatrix parentMatrix;
-    
+
     ShortestPathData(ShortestPathCostMatrix costMatrix, 
                      ParentMatrix parentMatrix) {
         this.costMatrix = costMatrix;
         this.parentMatrix = parentMatrix;
     }
-    
+
     public ShortestPathCostMatrix getCostMatrix() {
         return costMatrix;
     }
-    
+
     public ParentMatrix getParentMatrix() {
         return parentMatrix;
     }

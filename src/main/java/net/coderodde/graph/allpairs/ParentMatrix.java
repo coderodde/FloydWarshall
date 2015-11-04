@@ -14,30 +14,30 @@ import static net.coderodde.graph.allpairs.Utils.checkNumberOfNodes;
  * @version 1.6 (Nov 3, 2015)
  */
 public final class ParentMatrix {
-    
+
     /**
      * This sentinel value denotes the situation where there is no parent node
      * for the query.
      */
     public static final int NIL = -1;
-    
+
     private final int[][] matrix;
-    
+
     ParentMatrix(int numberOfNodes) {
         checkNumberOfNodes(numberOfNodes);
         this.matrix = new int[numberOfNodes][numberOfNodes];
-        
+
         for (int y = 0; y < numberOfNodes; ++y) {
             for (int x = 0; x < numberOfNodes; ++x) {
                 matrix[y][x] = NIL;
             }
         }
     }
-    
+
     public int getNumberOfNodes() {
         return matrix.length;
     }
-    
+
     /**
      * Returns the parent node of the node {@code currentNodeIndex} on a 
      * shortest path from {@code sourceNodeIndex} to {@code currentNodeIndex}.
@@ -53,7 +53,7 @@ public final class ParentMatrix {
         checkNodeIndex(currentNodeIndex, matrix.length);
         return matrix[sourceNodeIndex][currentNodeIndex];
     }
-    
+
     /**
      * Constructs a shortest path from the node {@code sourceNodeIndex} to the 
      * node {@code targetNodeIndex}. If the target node is unreachable from the
@@ -70,75 +70,75 @@ public final class ParentMatrix {
     public int[] getShortestPath(int sourceNodeIndex, int targetNodeIndex) {
         checkNodeIndex(sourceNodeIndex, matrix.length);
         checkNodeIndex(targetNodeIndex, matrix.length);
-        
+
         if (sourceNodeIndex == targetNodeIndex) {
             return new int[]{sourceNodeIndex};
         }
-        
+
         if (matrix[sourceNodeIndex][targetNodeIndex] == NIL) {
             return new int[0];
         }
-        
+
         List<Integer> nodeIndexList = new ArrayList<>();
-        
+
         nodeIndexList.add(targetNodeIndex);
-        
+
         while (sourceNodeIndex != targetNodeIndex) {
             targetNodeIndex = matrix[sourceNodeIndex][targetNodeIndex];
             nodeIndexList.add(targetNodeIndex);
         }
-        
+
         int[] path = new int[nodeIndexList.size()];
-        
+
         // The path in 'nodeIndexList' is in reversed order.
         for (int i = 0; i < path.length; ++i) {
             path[i] = nodeIndexList.get(nodeIndexList.size() - 1 - i);
         }
-        
+
         return path;
     }
-    
+
     @Override
     public String toString() {
         int n = matrix.length;
         int maximumFieldLength = 0;
         StringBuilder sb = new StringBuilder();
-        
+
         // Find out how long fields we need in order to print the contents of 
         // the matrix neatly.
         for (int y = 0; y < n; ++y) {
             for (int x = 0; x < n; ++x) {
                 sb.append(matrix[y][x]);
-                
+
                 int currentFieldLength = sb.toString().length();
-                
+
                 if (maximumFieldLength < currentFieldLength) {
                     maximumFieldLength = currentFieldLength;
                 }
-                
+
                 // Clear the StringBuilder.
                 sb.delete(0, sb.length());
             }
         }
-        
+
         for (int y = 0; y < n; ++y) {
             for (int x = 0; x < n; ++x) {
                 sb.append(String.format("%" + maximumFieldLength 
                                             + "d", matrix[y][x]));
-                
+
                 if (x < n - 1) {
                     sb.append(' ');
                 }
             }
-            
+
             if (y < n - 1) {
                 sb.append('\n');
             }
         }
-        
+
         return sb.toString();
     }
-    
+
     void setParent(int sourceNodeIndex, 
                    int currentNodeIndex, 
                    int parentNodeIndex) {

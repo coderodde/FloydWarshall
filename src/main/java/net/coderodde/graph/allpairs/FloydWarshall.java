@@ -11,59 +11,58 @@ import java.util.Objects;
  */
 public final class FloydWarshall {
 
+    private ShortestPathCostMatrix costMatrix;
+    private ParentMatrix parentMatrix;
+    
+    public FloydWarshall() {
+        
+    }
+    
+    private FloydWarshall(ShortestPathCostMatrix costMatrix,
+                          ParentMatrix parentMatrix) {
+        this.costMatrix = costMatrix;
+        this.parentMatrix = parentMatrix;
+    }
+    
     public ShortestPathData compute(AdjacencyMatrix adjacencyMatrix) {
         Objects.requireNonNull(adjacencyMatrix,
                                "The adjacency matrix is null.");
         int n = adjacencyMatrix.getNumberOfNodes();
-        ParentMatrix parentMatrix  = new ParentMatrix(n);
-        ShortestPathCostMatrix shortestPathCostMatrix = 
-                new ShortestPathCostMatrix(n);
-        
-        preprocess(parentMatrix, shortestPathCostMatrix, adjacencyMatrix);
-        
+        FloydWarshall fw = new FloydWarshall(new ShortestPathCostMatrix(n),
+                                             new ParentMatrix(n));
+        fw.preprocess(adjacencyMatrix);
+
         for (int k = 0; k < n; ++k) {
             for (int i = 0; i < n; ++i) {
                 for (int j = 0; j < n; ++j) {
-                    double currentCost = shortestPathCostMatrix
-                                         .getShortestPathCost(i, j);
-                    
-                    double tentativeCost = 
-                            shortestPathCostMatrix.getShortestPathCost(i, k) +
-                            shortestPathCostMatrix.getShortestPathCost(k, j);
-                    
-                    if (currentCost > tentativeCost) {
-                        shortestPathCostMatrix
-                                .setShortestPathCost(i, j, tentativeCost);
-                        
-                        // Update the parents book-keeping.
-                        parentMatrix
-                                .setParent(i, 
-                                           j, 
-                                           parentMatrix.getParent(k, j));
-                    }
+                    fw.attemptImprovement(k, i, j);
                 }
             }
         }
         
-        for (int i = 0; i < n; ++i) {
-            parentMatrix.setParent(i, i, ParentMatrix.NIL);
+        return new ShortestPathData(fw.costMatrix, fw.parentMatrix);
+    }
+
+    private void attemptImprovement(int k, int i, int j) {
+        double currentCost = costMatrix.getShortestPathCost(i, j);
+        double tentativeCost = costMatrix.getShortestPathCost(i, k) +
+                               costMatrix.getShortestPathCost(k, j);
+
+        if (currentCost > tentativeCost) {
+            costMatrix.setShortestPathCost(i, j, tentativeCost);
+            parentMatrix.setParent(i, j, parentMatrix.getParent(k, j));
         }
-        
-        return new ShortestPathData(shortestPathCostMatrix, 
-                                    parentMatrix);
     }
     
     // Initializes the parent and shortest path cost matrices.
-    private void preprocess(ParentMatrix parentMatrix,
-                            ShortestPathCostMatrix shortestPathCostMatrix,
-                            AdjacencyMatrix adjacencyMatrix) {
+    private void preprocess(AdjacencyMatrix adjacencyMatrix) {
         int n = adjacencyMatrix.getNumberOfNodes();
-        
+
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < n; ++j) {
                 double cost = adjacencyMatrix.getArcCost(i, j);
-                shortestPathCostMatrix.setShortestPathCost(i, j, cost);
-                
+                costMatrix.setShortestPathCost(i, j, cost);
+
                 if (i != j && !Double.isInfinite(cost)) {
                     parentMatrix.setParent(i, j, i);
                 }

@@ -16,27 +16,27 @@ import static net.coderodde.graph.allpairs.Utils.checkNodeIndex;
 public final class AdjacencyMatrix {
 
     private final double[][] matrix;
-    
+
     public AdjacencyMatrix(int numberOfNodes) {
         checkNumberOfNodes(numberOfNodes);
         this.matrix = new double[numberOfNodes][numberOfNodes];
-        
+
         for (int y = 0; y < numberOfNodes; ++y) {
             for (int x = 0; x < numberOfNodes; ++x) {
                 matrix[y][x] = Double.POSITIVE_INFINITY;
             }
         }
-        
+
         for (int i = 0; i < numberOfNodes; ++i) {
             // The distance from a node to itself is always zero.
             matrix[i][i] = 0.0;
         }
     }
-    
+
     public int getNumberOfNodes() {
         return matrix.length;
     }
-    
+
     /**
      * Reads the cost of the arc from {@code tailNodeIndex} to 
      * {@code headNodeIndex}.
@@ -50,7 +50,7 @@ public final class AdjacencyMatrix {
         checkNodeIndex(headNodeIndex, matrix.length);
         return matrix[headNodeIndex][tailNodeIndex];
     }
-    
+
     /**
      * Sets the cost of the arc from {@code tailNodeIndex} to
      * {@code headNodeIndex}.
@@ -63,7 +63,7 @@ public final class AdjacencyMatrix {
         checkNodeIndex(tailNodeIndex, matrix.length);
         checkNodeIndex(headNodeIndex, matrix.length);
         checkArcCost(cost);
-        
+
         // Do not update cost from a node to itself, or namely, do not introduce
         // self-loops.
         if (tailNodeIndex != headNodeIndex) {
