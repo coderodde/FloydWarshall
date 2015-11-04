@@ -7,7 +7,7 @@ public class FloydWarshallTest {
 
     private static final FloydWarshall ALGO = new FloydWarshall();
     
-//    @Test
+    @Test
     public void testFloydWarshallOnEmptyAdjacencyMatrix() {
         AdjacencyMatrix m = new AdjacencyMatrix(0);
         ShortestPathData data = ALGO.compute(m);
@@ -107,9 +107,17 @@ public class FloydWarshallTest {
         assertEquals(2, path[0]);
         assertEquals(1, path[1]);
         assertEquals(0, path[2]);
+        
+        for (int i = 0; i < 3; ++i) {
+            path = pm.getShortestPath(i, 3);
+            assertEquals(0, path.length);
+
+            path = pm.getShortestPath(i, 4);
+            assertEquals(0, path.length);
+        }
     }
     
-//    @Test
+    @Test
     public void testFloydWarshallSelfLoops() {
         AdjacencyMatrix m = new AdjacencyMatrix(2);
         
@@ -125,7 +133,7 @@ public class FloydWarshallTest {
         assertEquals(ParentMatrix.NIL, data.getParentMatrix().getParent(1, 1));
     }
     
-//    @Test
+    @Test
     public void testFloydWarshallGraphFromIntroductionToAlgorithms() {
         // The following graph is from "Introduction to Algorithms" 3rd edition,
         // Chapter 25, page 690.
@@ -196,5 +204,27 @@ public class FloydWarshallTest {
         assertEquals(+1.0, cm.getShortestPathCost(4, 2), 0.0);
         assertEquals(+6.0, cm.getShortestPathCost(4, 3), 0.0);
         
+        int[] path = pm.getShortestPath(0, 2);
+        
+        assertEquals(-3.0, cm.getShortestPathCost(0, 2), 0.0);
+        
+        assertEquals(4, path.length);
+        
+        assertEquals(0, path[0]);
+        assertEquals(4, path[1]);
+        assertEquals(3, path[2]);
+        assertEquals(2, path[3]);
+        
+        path = pm.getShortestPath(0, 1);
+        
+        assertEquals(1.0, cm.getShortestPathCost(0, 1), 0.0);
+        
+        assertEquals(5, path.length);
+        
+        assertEquals(0, path[0]);
+        assertEquals(4, path[1]);
+        assertEquals(3, path[2]);
+        assertEquals(2, path[3]);
+        assertEquals(1, path[4]);
     }
 }
