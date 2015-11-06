@@ -28,6 +28,8 @@ public class FloydWarshallTest {
         } catch (IllegalArgumentException ex) {
 
         }
+        
+        assertFalse(data.containsNegativeWeightCycle());
     }    
 
     @Test
@@ -54,7 +56,9 @@ public class FloydWarshallTest {
         ShortestPathData data = ALGO.compute(m);
         ParentMatrix pm = data.getParentMatrix();
         ShortestPathCostMatrix cm = data.getCostMatrix();
-
+        
+        assertFalse(data.containsNegativeWeightCycle());
+        
         assertEquals(3.0, cm.getShortestPathCost(0, 1), 0.0);
         assertEquals(3.0, cm.getShortestPathCost(1, 0), 0.0);
 
@@ -235,5 +239,46 @@ public class FloydWarshallTest {
 
         assertEquals(1, path.length);
         assertEquals(3, path[0]);
+        
+        assertFalse(data.containsNegativeWeightCycle());
+    }
+    
+    @Test
+    public void testFloydWarshallNegativeWeightCycle() {
+        AdjacencyMatrix m = new AdjacencyMatrix(3);
+        
+        m.setArcCost(0, 1, 1.0);
+        m.setArcCost(1, 2, 3.0);
+        m.setArcCost(2, 0, -4.0);
+        
+        assertFalse(ALGO.compute(m).containsNegativeWeightCycle());
+        
+        m.setArcCost(2, 0, -4.1);
+        
+        assertTrue(ALGO.compute(m).containsNegativeWeightCycle());
+    }
+    
+    @Test
+    public void testFloydWarshallNegativeWeightCycleInDisconnectedGraph() {
+        AdjacencyMatrix m = new AdjacencyMatrix(5);
+        
+        m.setArcCost(0, 1, 3.0);
+        m.setArcCost(1, 2, 5.0);
+        m.setArcCost(2, 0, -8.1);
+        m.setArcCost(3, 4, 10.0);
+        
+        assertTrue(ALGO.compute(m).containsNegativeWeightCycle());
+        
+        m.setArcCost(4, 3, -11.0);
+        
+        assertTrue(ALGO.compute(m).containsNegativeWeightCycle());
+        
+        m.setArcCost(2, 0, 1.0);
+        
+        assertTrue(ALGO.compute(m).containsNegativeWeightCycle());
+        
+        m.setArcCost(4, 3, -9.0);
+        
+        assertFalse(ALGO.compute(m).containsNegativeWeightCycle());
     }
 }

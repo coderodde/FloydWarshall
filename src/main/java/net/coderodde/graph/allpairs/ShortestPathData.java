@@ -11,11 +11,14 @@ public final class ShortestPathData {
 
     private final ShortestPathCostMatrix costMatrix;
     private final ParentMatrix parentMatrix;
-
+    private final boolean containsNegativeWeightCycle;
+    
     ShortestPathData(ShortestPathCostMatrix costMatrix, 
-                     ParentMatrix parentMatrix) {
+                     ParentMatrix parentMatrix,
+                     boolean containsNegativeWeightCycle) {
         this.costMatrix = costMatrix;
         this.parentMatrix = parentMatrix;
+        this.containsNegativeWeightCycle = containsNegativeWeightCycle;
     }
 
     public ShortestPathCostMatrix getCostMatrix() {
@@ -24,5 +27,9 @@ public final class ShortestPathData {
 
     public ParentMatrix getParentMatrix() {
         return parentMatrix;
+    }
+    
+    public boolean containsNegativeWeightCycle() {
+        return containsNegativeWeightCycle;
     }
 }

@@ -40,9 +40,38 @@ public final class FloydWarshall {
             }
         }
         
-        return new ShortestPathData(fw.costMatrix, fw.parentMatrix);
+        boolean containsNegativeWeightCycles = 
+                fw.containsNegativeWeightCycle(adjacencyMatrix);
+        
+        return new ShortestPathData(fw.costMatrix, 
+                                    fw.parentMatrix, 
+                                    containsNegativeWeightCycles);
     }
-
+    
+    private boolean 
+        containsNegativeWeightCycle(AdjacencyMatrix adjacencyMatrix) {
+        int n = adjacencyMatrix.getNumberOfNodes();
+        
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                double arcCost = adjacencyMatrix.getArcCost(j, i);
+                
+                // Arc (j -> i) exists?
+                if (Double.isFinite(arcCost)) {
+                    // The cost of the shortest path from i to j.
+                    double currentCost = costMatrix.getShortestPathCost(i, j);
+                 
+                    if (arcCost + currentCost < 0.0) {
+                        // We have found a negative weight cycle.
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
     private void attemptImprovement(int k, int i, int j) {
         double currentCost = costMatrix.getShortestPathCost(i, j);
         double tentativeCost = costMatrix.getShortestPathCost(i, k) +
